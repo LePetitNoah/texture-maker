@@ -62,6 +62,14 @@
           </select>
         </div>
 
+        <div class="tool-section">
+          <h3>Templates</h3>
+
+          <button class="templates-btn" id="templates-btn">
+            <i class="fas fa-image"></i>
+          </button>
+        </div>
+
         <div class="bottom-toolbar">
           <button class="bottom-toolbar-btn" id="trash-btn">
             <i class="fa-solid fa-trash"></i>
@@ -76,6 +84,30 @@
         <canvas class="canvas" id="canvas"></canvas>
       </div>
     </main>
+
+    <div class="templates-modal-overlay" id="templates-modal-overlay">
+      <div class="templates-modal" id="templates-modal">
+        <div class="templates-modal-header">
+          <h2>Templates</h2>
+
+          <button class="templates-modal-close" id="templates-modal-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="templates-modal-content">
+          <div class="templates-section">
+            <h3>Predefined Templates</h3>
+
+            <div class="templates-gallery" id="templates-gallery"></div>
+          </div>
+          <div class="templates-section">
+            <h3>Upload Custom PNG</h3>
+
+            <input type="file" id="template-upload" accept=".png" />
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

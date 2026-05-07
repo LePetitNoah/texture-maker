@@ -191,4 +191,186 @@ document.getElementById("grid-size").addEventListener("change", (e) => {
   init();
 });
 
+let TEMPLATES = [];
+
+async function generateTemplates() {
+  const templates = [];
+
+  try {
+    const response = await fetch("./manifest.json");
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const manifest = await response.json();
+
+    for (const template of manifest) {
+      try {
+        const imgResponse = await fetch(`./templates/${template.file}`);
+        if (!imgResponse.ok) throw new Error(`HTTP ${imgResponse.status}`);
+        const blob = await imgResponse.blob();
+        const url = URL.createObjectURL(blob);
+        templates.push({
+          name: template.name,
+          data: url,
+        });
+      } catch (err) {
+        console.warn(`Failed to load template ${template.file}:`, err);
+      }
+    }
+  } catch (err) {
+    console.warn("Failed to load manifest", err);
+  }
+
+  return templates;
+}
+
+function loadPNGToGrid(imageSrc, targetGridSize) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+
+    img.onload = () => {
+      try {
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = img.width;
+        tempCanvas.height = img.height;
+        const tempCtx = tempCanvas.getContext("2d");
+        tempCtx.imageSmoothingEnabled = false;
+        tempCtx.drawImage(img, 0, 0);
+
+        const resizeCanvas = document.createElement("canvas");
+        resizeCanvas.width = targetGridSize;
+        resizeCanvas.height = targetGridSize;
+        const resizeCtx = resizeCanvas.getContext("2d");
+        resizeCtx.imageSmoothingEnabled = false;
+        resizeCtx.drawImage(
+          tempCanvas,
+          0,
+          0,
+          img.width,
+          img.height,
+          0,
+          0,
+          targetGridSize,
+          targetGridSize,
+        );
+
+        const imageData = resizeCtx.getImageData(
+          0,
+          0,
+          targetGridSize,
+          targetGridSize,
+        );
+        const data = imageData.data;
+        const newGrid = [];
+
+        for (let i = 0; i < targetGridSize; i++) {
+          newGrid[i] = [];
+          for (let j = 0; j < targetGridSize; j++) {
+            const idx = (i * targetGridSize + j) * 4;
+            const r = data[idx];
+            const g = data[idx + 1];
+            const b = data[idx + 2];
+            const a = data[idx + 3];
+
+            const color =
+              "#" +
+              [r, g, b, a]
+                .map((x) => x.toString(16).padStart(2, "0"))
+                .join("")
+                .toUpperCase();
+            newGrid[i][j] = color;
+          }
+        }
+
+        resolve(newGrid);
+      } catch (err) {
+        reject(err);
+      }
+    };
+
+    img.onerror = () => {
+      reject(new Error("Failed to load image"));
+    };
+
+    img.src = imageSrc;
+  });
+}
+
+function applyTemplate(newGridData) {
+  grid = newGridData;
+  render();
+}
+
+function initTemplateSystem() {
+  const templatesBtn = document.getElementById("templates-btn");
+  const modalOverlay = document.getElementById("templates-modal-overlay");
+  const modalClose = document.getElementById("templates-modal-close");
+  const templatesGallery = document.getElementById("templates-gallery");
+  const templateUpload = document.getElementById("template-upload");
+
+  templatesBtn.addEventListener("click", () => {
+    modalOverlay.classList.add("active");
+  });
+
+  modalClose.addEventListener("click", () => {
+    modalOverlay.classList.remove("active");
+  });
+
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) {
+      modalOverlay.classList.remove("active");
+    }
+  });
+
+  TEMPLATES.forEach((template, idx) => {
+    const thumbnail = document.createElement("img");
+    thumbnail.src = template.data;
+    thumbnail.alt = template.name;
+    thumbnail.className = "template-thumbnail";
+    thumbnail.title = template.name;
+    thumbnail.style.imageRendering = "pixelated";
+
+    thumbnail.addEventListener("click", async () => {
+      try {
+        const newGrid = await loadPNGToGrid(template.data, gridSize);
+        applyTemplate(newGrid);
+        modalOverlay.classList.remove("active");
+      } catch (err) {
+        console.error("Failed to load template:", err);
+        alert("Failed to load template");
+      }
+    });
+
+    templatesGallery.appendChild(thumbnail);
+  });
+
+  templateUpload.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const newGrid = await loadPNGToGrid(event.target.result, gridSize);
+          applyTemplate(newGrid);
+          modalOverlay.classList.remove("active");
+          templateUpload.value = "";
+        } catch (err) {
+          console.error("Failed to load custom template:", err);
+          alert("Failed to load PNG. Make sure it's a valid PNG file.");
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      console.error("Error reading file:", err);
+      alert("Error reading file");
+    }
+  });
+}
+
 init();
+
+(async () => {
+  TEMPLATES = await generateTemplates();
+  initTemplateSystem();
+})();
