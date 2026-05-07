@@ -142,4 +142,29 @@ document.querySelectorAll(".tool-btn").forEach((btn) => {
   });
 });
 
+document.getElementById("export-btn").addEventListener("click", () => {
+  const exportCanvas = document.createElement("canvas");
+  const exportCtx = exportCanvas.getContext("2d");
+  const exportCellSize = Math.max(16, Math.floor(512 / gridSize));
+  exportCanvas.width = gridSize * exportCellSize;
+  exportCanvas.height = gridSize * exportCellSize;
+
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col < gridSize; col++) {
+      exportCtx.fillStyle = grid[row][col];
+      exportCtx.fillRect(
+        col * exportCellSize,
+        row * exportCellSize,
+        exportCellSize,
+        exportCellSize,
+      );
+    }
+  }
+
+  const link = document.createElement("a");
+  link.download = "texture.png";
+  link.href = exportCanvas.toDataURL("image/png");
+  link.click();
+});
+
 init();

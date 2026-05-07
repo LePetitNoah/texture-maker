@@ -6,6 +6,7 @@
   --surface-color-dark: #0a0a0a;
 
   --accent-color: #74bb4a;
+  --accent-color-dark: #4c7932;
 
   --text-color: #d1cbc1;
   --title-color: #629236;
@@ -112,6 +113,30 @@ main {
   border-radius: 4px;
   cursor: pointer;
   background: none;
+}
+
+.bottom-toolbar {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.export-btn {
+  width: 90%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: var(--surface-color);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.export-btn:hover {
+  background-color: var(--accent-color-dark);
 }
 
 .canvas-container {
