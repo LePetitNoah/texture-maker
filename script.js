@@ -18,7 +18,7 @@ function init() {
     Array(gridSize).fill("#00000000"),
   );
 
-  cellSize = Math.floor(720 / gridSize);
+  cellSize = Math.floor(704 / gridSize);
 
   canvas.width = gridSize * cellSize;
   canvas.height = gridSize * cellSize;
@@ -35,9 +35,11 @@ function render() {
       ctx.fillStyle = color;
       ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
 
-      ctx.strokeStyle = "#ffffffb9";
-      ctx.lineWidth = 0.6;
-      ctx.strokeRect(col * cellSize, row * cellSize, cellSize, cellSize);
+      if (gridActive) {
+        ctx.strokeStyle = "#ffffffb9";
+        ctx.lineWidth = 0.6;
+        ctx.strokeRect(col * cellSize, row * cellSize, cellSize, cellSize);
+      }
     }
   }
 }
@@ -177,6 +179,16 @@ document.getElementById("export-btn").addEventListener("click", () => {
 document.getElementById("trash-btn").addEventListener("click", () => {
   if (window.confirm("Êtes vous sûr de vouloir supprimer votre travail ?"))
     clearCanvas();
+});
+
+document.getElementById("grid-checkbox").addEventListener("click", () => {
+  gridActive = !gridActive;
+  render();
+});
+
+document.getElementById("grid-size").addEventListener("change", (e) => {
+  gridSize = parseInt(e.target.value);
+  init();
 });
 
 init();
