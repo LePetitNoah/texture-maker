@@ -2,8 +2,15 @@
 
 :root {
   --background-color: #1b1b19;
+  --surface-color: #141413;
+  --surface-color-dark: #0a0a0a;
+
+  --accent-color: #74bb4a;
 
   --text-color: #d1cbc1;
+  --title-color: #629236;
+
+  --border-color: #9ce66b;
 }
 
 * {
@@ -19,6 +26,78 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex: 1;
+}
+
+.toolbar {
+  width: 200px;
+  background-color: var(--surface-color);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 2px solid var(--border-color);
+}
+
+.tool-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tool-section h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--title-color);
+}
+
+.tool-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tool-btn {
+  width: 48px;
+  height: 48px;
+  font-size: 1.4rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.tool-btn:hover {
+  background-color: var(--surface-color-dark);
+}
+
+.tool-btn.active {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--surface-color);
+}
+
+.color-section {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-color-label input[type="color"] {
+  width: 64px;
+  height: 64px;
+  border: solid 1px var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
 }
 
 .canvas-container {

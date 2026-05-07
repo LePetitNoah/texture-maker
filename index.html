@@ -4,12 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Texture Maker</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="canvas-container">
-      <canvas class="canvas" id="canvas"></canvas>
-    </div>
+    <main>
+      <aside class="toolbar" id="toolbar">
+        <div class="tool-section">
+          <h3>Tools</h3>
+
+          <div class="tool-buttons">
+            <button class="tool-btn active" data-tool="pen" id="pen">
+              <i class="fas fa-pen"></i>
+            </button>
+
+            <button class="tool-btn" data-tool="eraser" id="eraser">
+              <i class="fas fa-eraser"></i>
+            </button>
+
+            <button class="tool-btn" data-tool="fill" id="fill">
+              <i class="fas fa-fill"></i>
+            </button>
+
+            <button class="tool-btn" data-tool="color-picker" id="color-picker">
+              <i class="fas fa-eyedropper"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <h3>Colors</h3>
+
+          <label class="custom-color-label">
+            <input type="color" id="custom-color" value="#74bb4a" />
+          </label>
+        </div>
+      </aside>
+
+      <div class="canvas-container">
+        <canvas class="canvas" id="canvas"></canvas>
+      </div>
+    </main>
 
     <script src="script.js"></script>
   </body>
