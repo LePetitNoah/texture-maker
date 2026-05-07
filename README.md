@@ -11,3 +11,7 @@
 ### Comment contribuer au projet ?
 
 > Pour proposer une idée ou une amélioration, il vous suffit de créer une “Issue” dans l’onglet “Issues” du dépôt GitHub, puis de sélectionner l’option “Feature request”. Veillez à renseigner un titre clair et explicite, accompagné d’une description détaillée, afin que je puisse comprendre votre proposition dans les meilleures conditions. Si votre idée s’avère pertinente et intéressante, elle pourra être intégrée au projet afin que toute la communauté puisse en profiter.
+
+### Qui suis-je ?
+
+> Si vous souhaitez en apprendre d'avantage sur moi, vous pouvez cliquer sur ce lien pour découvrir mon [Portfolio](https://lepetitnoah.github.io/).
