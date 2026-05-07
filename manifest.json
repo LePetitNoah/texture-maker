@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Amethyst Block",
+    "file": "amethyst_block.png"
+  },
+  {
+    "name": "Basalt Side",
+    "file": "basalt_side.png"
+  },
+  {
+    "name": "Blackstone",
+    "file": "blackstone.png"
+  },
+  {
+    "name": "Bricks",
+    "file": "bricks.png"
+  },
+  {
+    "name": "Calcite",
+    "file": "calcite.png"
+  },
+  {
+    "name": "Cobbled Deepslate",
+    "file": "cobbled_deepslate.png"
+  },
+  {
+    "name": "Cobblestone",
+    "file": "cobblestone.png"
+  },
+  {
+    "name": "Copper Block",
+    "file": "copper_block.png"
+  },
+  {
+    "name": "Deepslate",
+    "file": "deepslate.png"
+  },
+  {
+    "name": "Diorite",
+    "file": "diorite.png"
+  },
+  {
+    "name": "Dirt",
+    "file": "dirt.png"
+  },
+  {
+    "name": "Dripstone Block",
+    "file": "dripstone_block.png"
+  },
+  {
+    "name": "End Stone",
+    "file": "end_stone.png"
+  },
+  {
+    "name": "Glowstone",
+    "file": "glowstone.png"
+  },
+  {
+    "name": "Granite",
+    "file": "granite.png"
+  },
+  {
+    "name": "Grass Block Top",
+    "file": "grass_block_top.png"
+  },
+  {
+    "name": "Gravel",
+    "file": "gravel.png"
+  },
+  {
+    "name": "Ice",
+    "file": "ice.png"
+  },
+  {
+    "name": "Iron Ore",
+    "file": "iron_ore.png"
+  },
+  {
+    "name": "Mossy Cobblestone",
+    "file": "mossy_cobblestone.png"
+  },
+  {
+    "name": "Moss Block",
+    "file": "moss_block.png"
+  },
+  {
+    "name": "Mud",
+    "file": "mud.png"
+  },
+  {
+    "name": "Netherrack",
+    "file": "netherrack.png"
+  },
+  {
+    "name": "Nether Bricks",
+    "file": "nether_bricks.png"
+  },
+  {
+    "name": "Oak Leaves",
+    "file": "oak_leaves.png"
+  },
+  {
+    "name": "Oak Log",
+    "file": "oak_log.png"
+  },
+  {
+    "name": "Oak Planks",
+    "file": "oak_planks.png"
+  },
+  {
+    "name": "Obsidian",
+    "file": "obsidian.png"
+  },
+  {
+    "name": "Quartz Block Side",
+    "file": "quartz_block_side.png"
+  },
+  {
+    "name": "Sand",
+    "file": "sand.png"
+  },
+  {
+    "name": "Sculk Catalyst Top",
+    "file": "sculk_catalyst_top.png"
+  },
+  {
+    "name": "Snow",
+    "file": "snow.png"
+  },
+  {
+    "name": "Soul Sand",
+    "file": "soul_sand.png"
+  },
+  {
+    "name": "Stone",
+    "file": "stone.png"
+  },
+  {
+    "name": "Stone Bricks",
+    "file": "stone_bricks.png"
+  },
+  {
+    "name": "Tuff",
+    "file": "tuff.png"
+  }
+]
