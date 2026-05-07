@@ -95,6 +95,13 @@ function floodFill(row, col, newColor) {
   render();
 }
 
+function clearCanvas() {
+  grid = Array.from({ length: gridSize }, () =>
+    Array(gridSize).fill("#00000000"),
+  );
+  render();
+}
+
 canvas.addEventListener("mousedown", (e) => {
   isDrawing = true;
   const cell = getCellFromMouse(e);
@@ -165,6 +172,11 @@ document.getElementById("export-btn").addEventListener("click", () => {
   link.download = "texture.png";
   link.href = exportCanvas.toDataURL("image/png");
   link.click();
+});
+
+document.getElementById("trash-btn").addEventListener("click", () => {
+  if (window.confirm("Êtes vous sûr de vouloir supprimer votre travail ?"))
+    clearCanvas();
 });
 
 init();
