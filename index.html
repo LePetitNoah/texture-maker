@@ -63,6 +63,48 @@
         </div>
 
         <div class="tool-section">
+          <h3>Ajustements</h3>
+
+          <label class="slider-label">
+            <span>Teinte</span>
+
+            <span id="hue-value">0°</span>
+          </label>
+
+          <input type="range" id="hue-range" min="-180" max="180" value="0" />
+
+          <label class="slider-label">
+            <span>Saturation</span>
+
+            <span id="saturation-value">100%</span>
+          </label>
+          <input
+            type="range"
+            id="saturation-range"
+            min="0"
+            max="200"
+            value="100"
+          />
+
+          <label class="slider-label">
+            <span>Luminosité</span>
+
+            <span id="brightness-value">100%</span>
+          </label>
+          <input
+            type="range"
+            id="brightness-range"
+            min="0"
+            max="200"
+            value="100"
+          />
+
+          <button class="adjustments-reset-btn" id="reset-filters-btn">
+            Réinitialiser
+          </button>
+        </div>
+
+        <div class="tool-section">
           <h3>Templates</h3>
 
           <button class="templates-btn" id="templates-btn">

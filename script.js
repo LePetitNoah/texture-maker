@@ -9,6 +9,9 @@ let currentColor = "#74bb4a";
 let currentTool = "pen";
 let isDrawing = false;
 let gridActive = true;
+let hue = 0;
+let saturation = 100;
+let brightness = 100;
 
 const custom_color = document.getElementById("custom-color");
 custom_color.value = currentColor;
@@ -18,12 +21,14 @@ function init() {
     Array(gridSize).fill("#00000000"),
   );
 
-  cellSize = Math.floor(704 / gridSize);
+  cellSize = Math.floor(576 / gridSize);
 
   canvas.width = gridSize * cellSize;
   canvas.height = gridSize * cellSize;
 
   render();
+  updateFilterValues();
+  applyCanvasFilters();
 }
 
 function render() {
@@ -36,12 +41,37 @@ function render() {
       ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
 
       if (gridActive) {
-        ctx.strokeStyle = "#ffffffb9";
+        ctx.strokeStyle = "#dad9d985";
         ctx.lineWidth = 0.6;
         ctx.strokeRect(col * cellSize, row * cellSize, cellSize, cellSize);
       }
     }
   }
+}
+
+function getCanvasFilter() {
+  return `hue-rotate(${hue}deg) saturate(${saturation}%) brightness(${brightness}%)`;
+}
+
+function applyCanvasFilters() {
+  canvas.style.filter = getCanvasFilter();
+}
+
+function updateFilterValues() {
+  document.getElementById("hue-value").textContent = `${hue}°`;
+  document.getElementById("saturation-value").textContent = `${saturation}%`;
+  document.getElementById("brightness-value").textContent = `${brightness}%`;
+}
+
+function resetFilters() {
+  hue = 0;
+  saturation = 100;
+  brightness = 100;
+  document.getElementById("hue-range").value = hue;
+  document.getElementById("saturation-range").value = saturation;
+  document.getElementById("brightness-range").value = brightness;
+  updateFilterValues();
+  applyCanvasFilters();
 }
 
 function getCellFromMouse(e) {
@@ -141,6 +171,28 @@ custom_color.addEventListener("input", (e) => {
   currentColor = e.target.value;
 });
 
+document.getElementById("hue-range").addEventListener("input", (e) => {
+  hue = parseInt(e.target.value, 10);
+  updateFilterValues();
+  applyCanvasFilters();
+});
+
+document.getElementById("saturation-range").addEventListener("input", (e) => {
+  saturation = parseInt(e.target.value, 10);
+  updateFilterValues();
+  applyCanvasFilters();
+});
+
+document.getElementById("brightness-range").addEventListener("input", (e) => {
+  brightness = parseInt(e.target.value, 10);
+  updateFilterValues();
+  applyCanvasFilters();
+});
+
+document.getElementById("reset-filters-btn").addEventListener("click", () => {
+  resetFilters();
+});
+
 document.querySelectorAll(".tool-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     currentTool = btn.dataset.tool;
@@ -157,6 +209,7 @@ document.getElementById("export-btn").addEventListener("click", () => {
   const exportCellSize = Math.max(16, Math.floor(512 / gridSize));
   exportCanvas.width = gridSize * exportCellSize;
   exportCanvas.height = gridSize * exportCellSize;
+  exportCtx.filter = getCanvasFilter();
 
   for (let row = 0; row < gridSize; row++) {
     for (let col = 0; col < gridSize; col++) {

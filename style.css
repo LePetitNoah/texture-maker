@@ -139,6 +139,7 @@ select {
   -webkit-tap-highlight-color: transparent;
   transform: translate3d(0, 0, 0);
 }
+
 .checkbox-container .toggle:before {
   content: "";
   position: relative;
@@ -151,6 +152,7 @@ select {
   border-radius: 8px;
   transition: background 0.2s ease;
 }
+
 .checkbox-container .toggle span {
   position: absolute;
   top: 0;
@@ -162,6 +164,7 @@ select {
   border-radius: 10px;
   transition: all 0.2s ease;
 }
+
 .checkbox-container .toggle span:before {
   content: "";
   position: absolute;
@@ -179,6 +182,7 @@ select {
 .checkbox-container #grid-checkbox:checked + .toggle:before {
   background: var(--accent-color);
 }
+
 .checkbox-container #grid-checkbox:checked + .toggle span {
   background: var(--accent-color-dark);
   transform: translateX(20px);
@@ -186,10 +190,41 @@ select {
     all 0.2s cubic-bezier(0.8, 0.4, 0.3, 1.25),
     background 0.15s ease;
 }
+
 .checkbox-container #grid-checkbox:checked + .toggle span:before {
   transform: scale(1);
   opacity: 0;
   transition: all 0.4s ease;
+}
+
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-color);
+}
+
+.tool-section input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent-color);
+}
+
+.adjustments-reset-btn {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.adjustments-reset-btn:hover {
+  background-color: var(--surface-color-dark);
+  border-color: var(--accent-color);
 }
 
 .bottom-toolbar {
