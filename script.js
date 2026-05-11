@@ -62,7 +62,7 @@ function addRecentColor(color) {
 
 function renderRecentColors() {
   const container = document.getElementById("recent-colors-swatches");
-  container.innerHTML = "";
+  container.replaceChildren();
   recentColors.forEach((color) => {
     const swatch = document.createElement("button");
     swatch.className = "recent-swatch";
@@ -196,6 +196,10 @@ function paintCell(row, col) {
   }
 }
 
+function isInBounds(r, c) {
+  return r >= 0 && r < gridSize && c >= 0 && c < gridSize;
+}
+
 function lineCells(r0, c0, r1, c1) {
   const cells = [];
   const dr = Math.abs(r1 - r0);
@@ -207,7 +211,7 @@ function lineCells(r0, c0, r1, c1) {
   let c = c0;
 
   while (true) {
-    if (r >= 0 && r < gridSize && c >= 0 && c < gridSize) {
+    if (isInBounds(r, c)) {
       cells.push({ row: r, col: c });
     }
     if (r === r1 && c === c1) break;
@@ -645,52 +649,48 @@ function showConfirm(title, message, onConfirm) {
   }, 8000);
 }
 
+const toolShortcuts = {
+  p: () => document.getElementById("pen").click(),
+  e: () => document.getElementById("eraser").click(),
+  f: () => document.getElementById("fill").click(),
+  i: () => document.getElementById("color-picker").click(),
+  h: () => document.getElementById("grid-checkbox").click(),
+};
+
 document.addEventListener("keydown", (e) => {
   const isCtrl = e.ctrlKey || e.metaKey;
+  const key = e.key;
 
-  if (isCtrl && e.key === "z" && !e.shiftKey) {
-    e.preventDefault();
-    undo();
-  }
-  if (isCtrl && (e.key === "y" || (e.key === "z" && e.shiftKey))) {
-    e.preventDefault();
-    redo();
-  }
-  if (isCtrl && e.key === "s") {
-    e.preventDefault();
-    document.getElementById("export-btn").click();
-  }
-  if (e.key === "p" || e.key === "P") {
-    if (!isCtrl) {
-      document.getElementById("pen").click();
+  if (isCtrl) {
+    if (key === "z") {
+      e.preventDefault();
+      if (e.shiftKey) redo();
+      else undo();
+      return;
     }
-  }
-  if (e.key === "e" || e.key === "E") {
-    if (!isCtrl) {
-      document.getElementById("eraser").click();
+    if (key === "y") {
+      e.preventDefault();
+      redo();
+      return;
     }
-  }
-  if (e.key === "f" || e.key === "F") {
-    if (!isCtrl) {
-      document.getElementById("fill").click();
+    if (key === "s") {
+      e.preventDefault();
+      document.getElementById("export-btn").click();
+      return;
     }
+    return;
   }
-  if (e.key === "i" || e.key === "I") {
-    if (!isCtrl) {
-      document.getElementById("color-picker").click();
-    }
-  }
-  if (e.key === "h" || e.key === "H") {
-    if (!isCtrl) {
-      document.getElementById("grid-checkbox").click();
-    }
-  }
-  if (e.key === "Delete" || e.key === "Backspace") {
-    if (!isCtrl && !e.target.matches("input, select, textarea")) {
+
+  if (key === "Delete" || key === "Backspace") {
+    if (!e.target.matches("input, select, textarea")) {
       e.preventDefault();
       document.getElementById("trash-btn").click();
     }
+    return;
   }
+
+  const handler = toolShortcuts[key.toLowerCase()];
+  if (handler) handler();
 });
 
 init();

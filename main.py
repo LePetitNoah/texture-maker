@@ -21,8 +21,8 @@ def create_json():
     return templates
 
 def capitalize_file_name(file_name: str):
-    texture_name = file_name.split(".")[0]
-    texture_name_parts = texture_name.split("_")
+    base_name = file_name.split(".")[0]
+    texture_name_parts = base_name.split("_")
     capitalized_parts = []
     for part in texture_name_parts:
         capitalized_part = part.capitalize()
